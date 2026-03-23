@@ -3,10 +3,15 @@ import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from '@/components/data-table'
-import { LongText } from '@/components/long-text'
 import { callTypes, roles } from '../data/data'
 import { type User } from '../data/schema'
 import { DataTableRowActions } from './data-table-row-actions'
+
+const gradeVariant: Record<string, string> = {
+  VVIP: 'bg-amber-100/50 text-amber-900 dark:text-amber-200 border-amber-300',
+  VIP: 'bg-violet-100/50 text-violet-900 dark:text-violet-200 border-violet-300',
+  일반: '',
+}
 
 export const usersColumns: ColumnDef<User>[] = [
   {
@@ -18,7 +23,7 @@ export const usersColumns: ColumnDef<User>[] = [
           (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
+        aria-label='전체 선택'
         className='translate-y-[2px]'
       />
     ),
@@ -29,7 +34,7 @@ export const usersColumns: ColumnDef<User>[] = [
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
+        aria-label='행 선택'
         className='translate-y-[2px]'
       />
     ),
@@ -37,13 +42,20 @@ export const usersColumns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'username',
+    id: 'fullName',
+    accessorFn: (row) => `${row.lastName}${row.firstName}`,
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Username' />
+      <DataTableColumnHeader column={column} title='이름' />
     ),
-    cell: ({ row }) => (
-      <LongText className='max-w-36 ps-3'>{row.getValue('username')}</LongText>
-    ),
+    cell: ({ row }) => {
+      const { firstName, lastName } = row.original
+      return (
+        <div className='ps-3 text-sm font-medium'>
+          {lastName}
+          {firstName}
+        </div>
+      )
+    },
     meta: {
       className: cn(
         'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)]',
@@ -53,48 +65,97 @@ export const usersColumns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    id: 'fullName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Name' />
-    ),
-    cell: ({ row }) => {
-      const { firstName, lastName } = row.original
-      const fullName = `${firstName} ${lastName}`
-      return <LongText className='max-w-36'>{fullName}</LongText>
-    },
-    meta: { className: 'w-36' },
-  },
-  {
     accessorKey: 'email',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Email' />
+      <DataTableColumnHeader column={column} title='이메일' />
     ),
     cell: ({ row }) => (
-      <div className='w-fit ps-2 text-nowrap'>{row.getValue('email')}</div>
+      <div className='w-fit ps-2 text-sm text-nowrap'>
+        {row.getValue('email')}
+      </div>
     ),
   },
   {
     accessorKey: 'phoneNumber',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Phone Number' />
+      <DataTableColumnHeader column={column} title='전화번호' />
     ),
-    cell: ({ row }) => <div>{row.getValue('phoneNumber')}</div>,
+    cell: ({ row }) => (
+      <div className='text-sm'>{row.getValue('phoneNumber')}</div>
+    ),
     enableSorting: false,
+  },
+  {
+    id: 'createdAt',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='가입일' />
+    ),
+    cell: ({ row }) => {
+      const date = row.original.createdAt
+      return (
+        <div className='text-sm'>
+          {date.getFullYear()}.{String(date.getMonth() + 1).padStart(2, '0')}.
+          {String(date.getDate()).padStart(2, '0')}
+        </div>
+      )
+    },
+  },
+  {
+    id: 'orderCount',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='주문횟수' />
+    ),
+    cell: ({ row }) => (
+      <div className='text-right text-sm tabular-nums'>
+        {row.original.orderCount}회
+      </div>
+    ),
+  },
+  {
+    id: 'totalSpent',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='누적결제' />
+    ),
+    cell: ({ row }) => (
+      <div className='text-right text-sm font-medium tabular-nums'>
+        ₩{row.original.totalSpent.toLocaleString('ko-KR')}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'role',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='등급' />
+    ),
+    cell: ({ row }) => {
+      const { role } = row.original
+      const gradeInfo = roles.find(({ value }) => value === role)
+      if (!gradeInfo) return null
+      return (
+        <Badge variant='outline' className={cn(gradeVariant[role] ?? '')}>
+          {gradeInfo.icon && <gradeInfo.icon size={12} className='mr-1' />}
+          {gradeInfo.label}
+        </Badge>
+      )
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
+      <DataTableColumnHeader column={column} title='상태' />
     ),
     cell: ({ row }) => {
       const { status } = row.original
       const badgeColor = callTypes.get(status)
       return (
-        <div className='flex space-x-2'>
-          <Badge variant='outline' className={cn('capitalize', badgeColor)}>
-            {row.getValue('status')}
-          </Badge>
-        </div>
+        <Badge variant='outline' className={cn(badgeColor)}>
+          {status}
+        </Badge>
       )
     },
     filterFn: (row, id, value) => {
@@ -102,34 +163,6 @@ export const usersColumns: ColumnDef<User>[] = [
     },
     enableHiding: false,
     enableSorting: false,
-  },
-  {
-    accessorKey: 'role',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Role' />
-    ),
-    cell: ({ row }) => {
-      const { role } = row.original
-      const userType = roles.find(({ value }) => value === role)
-
-      if (!userType) {
-        return null
-      }
-
-      return (
-        <div className='flex items-center gap-x-2'>
-          {userType.icon && (
-            <userType.icon size={16} className='text-muted-foreground' />
-          )}
-          <span className='text-sm capitalize'>{row.getValue('role')}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
-    enableSorting: false,
-    enableHiding: false,
   },
   {
     id: 'actions',

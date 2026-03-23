@@ -57,7 +57,7 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
     globalFilter: { enabled: false },
     columnFilters: [
       // username per-column text filter
-      { columnId: 'username', searchKey: 'username', type: 'string' },
+      { columnId: 'fullName', searchKey: 'username', type: 'string' },
       { columnId: 'status', searchKey: 'status', type: 'array' },
       { columnId: 'role', searchKey: 'role', type: 'array' },
     ],
@@ -101,22 +101,21 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
     >
       <DataTableToolbar
         table={table}
-        searchPlaceholder='Filter users...'
-        searchKey='username'
+        searchPlaceholder='회원 검색 (이름, 이메일)...'
+        searchKey='fullName'
         filters={[
           {
             columnId: 'status',
-            title: 'Status',
+            title: '상태',
             options: [
-              { label: 'Active', value: 'active' },
-              { label: 'Inactive', value: 'inactive' },
-              { label: 'Invited', value: 'invited' },
-              { label: 'Suspended', value: 'suspended' },
+              { label: '활성', value: '활성' },
+              { label: '휴면', value: '휴면' },
+              { label: '탈퇴', value: '탈퇴' },
             ],
           },
           {
             columnId: 'role',
-            title: 'Role',
+            title: '등급',
             options: roles.map((role) => ({ ...role })),
           },
         ]}
@@ -180,7 +179,7 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  검색 결과가 없습니다.
                 </TableCell>
               </TableRow>
             )}
