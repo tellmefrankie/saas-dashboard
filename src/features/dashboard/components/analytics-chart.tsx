@@ -1,41 +1,13 @@
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 const data = [
-  {
-    name: 'Mon',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
-  },
-  {
-    name: 'Tue',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
-  },
-  {
-    name: 'Wed',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
-  },
-  {
-    name: 'Thu',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
-  },
-  {
-    name: 'Fri',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
-  },
-  {
-    name: 'Sat',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
-  },
-  {
-    name: 'Sun',
-    clicks: Math.floor(Math.random() * 900) + 100,
-    uniques: Math.floor(Math.random() * 700) + 80,
-  },
+  { name: '월', clicks: 420, uniques: 310 },
+  { name: '화', clicks: 580, uniques: 430 },
+  { name: '수', clicks: 650, uniques: 490 },
+  { name: '목', clicks: 510, uniques: 380 },
+  { name: '금', clicks: 720, uniques: 540 },
+  { name: '토', clicks: 380, uniques: 280 },
+  { name: '일', clicks: 290, uniques: 210 },
 ]
 
 export function AnalyticsChart() {
