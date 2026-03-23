@@ -17,33 +17,33 @@ import {
 const items = [
   {
     id: 'recents',
-    label: 'Recents',
+    label: '최근 항목',
   },
   {
     id: 'home',
-    label: 'Home',
+    label: '홈',
   },
   {
     id: 'applications',
-    label: 'Applications',
+    label: '애플리케이션',
   },
   {
     id: 'desktop',
-    label: 'Desktop',
+    label: '데스크톱',
   },
   {
     id: 'downloads',
-    label: 'Downloads',
+    label: '다운로드',
   },
   {
     id: 'documents',
-    label: 'Documents',
+    label: '문서',
   },
 ] as const
 
 const displayFormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: 'You have to select at least one item.',
+    message: '최소 1개의 항목을 선택해야 합니다.',
   }),
 })
 
@@ -72,9 +72,9 @@ export function DisplayForm() {
           render={() => (
             <FormItem>
               <div className='mb-4'>
-                <FormLabel className='text-base'>Sidebar</FormLabel>
+                <FormLabel className='text-base'>사이드바</FormLabel>
                 <FormDescription>
-                  Select the items you want to display in the sidebar.
+                  사이드바에 표시할 항목을 선택하세요.
                 </FormDescription>
               </div>
               {items.map((item) => (
@@ -114,7 +114,7 @@ export function DisplayForm() {
             </FormItem>
           )}
         />
-        <Button type='submit'>Update display</Button>
+        <Button type='submit'>화면 설정 저장</Button>
       </form>
     </Form>
   )

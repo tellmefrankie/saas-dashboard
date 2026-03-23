@@ -31,25 +31,25 @@ import {
 import { DatePicker } from '@/components/date-picker'
 
 const languages = [
-  { label: 'English', value: 'en' },
-  { label: 'French', value: 'fr' },
-  { label: 'German', value: 'de' },
-  { label: 'Spanish', value: 'es' },
-  { label: 'Portuguese', value: 'pt' },
-  { label: 'Russian', value: 'ru' },
-  { label: 'Japanese', value: 'ja' },
-  { label: 'Korean', value: 'ko' },
-  { label: 'Chinese', value: 'zh' },
+  { label: '영어', value: 'en' },
+  { label: '프랑스어', value: 'fr' },
+  { label: '독일어', value: 'de' },
+  { label: '스페인어', value: 'es' },
+  { label: '포르투갈어', value: 'pt' },
+  { label: '러시아어', value: 'ru' },
+  { label: '일본어', value: 'ja' },
+  { label: '한국어', value: 'ko' },
+  { label: '중국어', value: 'zh' },
 ] as const
 
 const accountFormSchema = z.object({
   name: z
     .string()
-    .min(1, 'Please enter your name.')
-    .min(2, 'Name must be at least 2 characters.')
-    .max(30, 'Name must not be longer than 30 characters.'),
-  dob: z.date('Please select your date of birth.'),
-  language: z.string('Please select a language.'),
+    .min(1, '이름을 입력해주세요.')
+    .min(2, '이름은 최소 2자 이상이어야 합니다.')
+    .max(30, '이름은 30자를 초과할 수 없습니다.'),
+  dob: z.date('생년월일을 선택해주세요.'),
+  language: z.string('언어를 선택해주세요.'),
 })
 
 type AccountFormValues = z.infer<typeof accountFormSchema>
@@ -77,13 +77,12 @@ export function AccountForm() {
           name='name'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>이름</FormLabel>
               <FormControl>
-                <Input placeholder='Your name' {...field} />
+                <Input placeholder='이름을 입력하세요' {...field} />
               </FormControl>
               <FormDescription>
-                This is the name that will be displayed on your profile and in
-                emails.
+                프로필과 이메일에 표시되는 이름입니다.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -94,10 +93,10 @@ export function AccountForm() {
           name='dob'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel>생년월일</FormLabel>
               <DatePicker selected={field.value} onSelect={field.onChange} />
               <FormDescription>
-                Your date of birth is used to calculate your age.
+                생년월일은 나이를 계산하는 데 사용됩니다.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -108,7 +107,7 @@ export function AccountForm() {
           name='language'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>Language</FormLabel>
+              <FormLabel>언어</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -124,15 +123,15 @@ export function AccountForm() {
                         ? languages.find(
                             (language) => language.value === field.value
                           )?.label
-                        : 'Select language'}
+                        : '언어 선택'}
                       <CaretSortIcon className='ms-2 h-4 w-4 shrink-0 opacity-50' />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className='w-[200px] p-0'>
                   <Command>
-                    <CommandInput placeholder='Search language...' />
-                    <CommandEmpty>No language found.</CommandEmpty>
+                    <CommandInput placeholder='언어 검색...' />
+                    <CommandEmpty>언어를 찾을 수 없습니다.</CommandEmpty>
                     <CommandGroup>
                       <CommandList>
                         {languages.map((language) => (
@@ -160,13 +159,13 @@ export function AccountForm() {
                 </PopoverContent>
               </Popover>
               <FormDescription>
-                This is the language that will be used in the dashboard.
+                대시보드에서 사용할 언어입니다.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>Update account</Button>
+        <Button type='submit'>계정 업데이트</Button>
       </form>
     </Form>
   )
