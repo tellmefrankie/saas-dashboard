@@ -49,21 +49,18 @@ export function TasksDialogs() {
               setTimeout(() => {
                 setCurrentRow(null)
               }, 500)
-              showSubmittedData(
-                currentRow,
-                'The following task has been deleted:'
-              )
+              showSubmittedData(currentRow, '다음 주문이 삭제되었습니다:')
             }}
             className='max-w-md'
-            title={`Delete this task: ${currentRow.id} ?`}
+            title={`주문 ${currentRow.orderNumber} 삭제`}
             desc={
               <>
-                You are about to delete a task with the ID{' '}
-                <strong>{currentRow.id}</strong>. <br />
-                This action cannot be undone.
+                주문번호 <strong>{currentRow.orderNumber}</strong>을(를)
+                삭제하시겠습니까?
+                <br />이 작업은 되돌릴 수 없습니다.
               </>
             }
-            confirmText='Delete'
+            confirmText='삭제'
           />
         </>
       )}

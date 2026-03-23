@@ -1,13 +1,32 @@
 import { z } from 'zod'
 
-// We're keeping a simple non-relational schema here.
-// IRL, you will have a schema for your data models.
-export const taskSchema = z.object({
+export const orderStatusValues = [
+  '결제완료',
+  '배송준비',
+  '배송중',
+  '배송완료',
+  '취소',
+] as const
+
+export const paymentMethodValues = ['카드', '계좌이체', '간편결제'] as const
+
+export const orderSchema = z.object({
   id: z.string(),
-  title: z.string(),
-  status: z.string(),
-  label: z.string(),
-  priority: z.string(),
+  orderNumber: z.string(),
+  customerName: z.string(),
+  customerEmail: z.string(),
+  customerPhone: z.string(),
+  product: z.string(),
+  amount: z.number(),
+  paymentMethod: z.enum(paymentMethodValues),
+  status: z.enum(orderStatusValues),
+  orderDate: z.string(),
+  shippingAddress: z.string(),
+  approvalNumber: z.string(),
 })
 
-export type Task = z.infer<typeof taskSchema>
+export type Order = z.infer<typeof orderSchema>
+
+// Keep backward compatibility alias
+export const taskSchema = orderSchema
+export type Task = Order

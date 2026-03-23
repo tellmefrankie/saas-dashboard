@@ -2,11 +2,22 @@ import { type ColumnDef } from '@tanstack/react-table'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from '@/components/data-table'
-import { labels, priorities, statuses } from '../data/data'
-import { type Task } from '../data/schema'
+import { paymentMethods, statuses } from '../data/data'
+import { type Order } from '../data/schema'
 import { DataTableRowActions } from './data-table-row-actions'
 
-export const tasksColumns: ColumnDef<Task>[] = [
+const statusVariant: Record<
+  string,
+  'default' | 'secondary' | 'outline' | 'destructive'
+> = {
+  결제완료: 'default',
+  배송준비: 'secondary',
+  배송중: 'secondary',
+  배송완료: 'outline',
+  취소: 'destructive',
+}
+
+export const tasksColumns: ColumnDef<Order>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -16,7 +27,7 @@ export const tasksColumns: ColumnDef<Task>[] = [
           (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
+        aria-label='전체 선택'
         className='translate-y-[2px]'
       />
     ),
@@ -24,7 +35,7 @@ export const tasksColumns: ColumnDef<Task>[] = [
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
+        aria-label='행 선택'
         className='translate-y-[2px]'
       />
     ),
@@ -32,55 +43,79 @@ export const tasksColumns: ColumnDef<Task>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'id',
+    accessorKey: 'orderNumber',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Task' />
+      <DataTableColumnHeader column={column} title='주문번호' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => (
+      <div className='w-[120px] font-mono text-xs'>
+        {row.getValue('orderNumber')}
+      </div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'title',
+    accessorKey: 'orderDate',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Title' />
+      <DataTableColumnHeader column={column} title='주문일' />
+    ),
+    cell: ({ row }) => (
+      <div className='w-[90px] text-sm'>{row.getValue('orderDate')}</div>
+    ),
+  },
+  {
+    accessorKey: 'customerName',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='주문자' />
+    ),
+    cell: ({ row }) => (
+      <div className='w-[70px] text-sm'>{row.getValue('customerName')}</div>
+    ),
+  },
+  {
+    accessorKey: 'product',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='상품명' />
     ),
     meta: {
-      className: 'ps-1 max-w-0 w-2/3',
+      className: 'ps-1 max-w-0 w-1/3',
       tdClassName: 'ps-4',
     },
+    cell: ({ row }) => (
+      <span className='truncate text-sm font-medium'>
+        {row.getValue('product')}
+      </span>
+    ),
+  },
+  {
+    accessorKey: 'amount',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='금액' />
+    ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label)
-
+      const amount = row.getValue('amount') as number
       return (
-        <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
-          <span className='truncate font-medium'>{row.getValue('title')}</span>
+        <div className='w-[100px] text-right text-sm font-medium tabular-nums'>
+          ₩{amount.toLocaleString('ko-KR')}
         </div>
       )
     },
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'paymentMethod',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
+      <DataTableColumnHeader column={column} title='결제수단' />
     ),
-    meta: { className: 'ps-1', tdClassName: 'ps-4' },
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue('status')
+      const method = paymentMethods.find(
+        (m) => m.value === row.getValue('paymentMethod')
       )
-
-      if (!status) {
-        return null
-      }
-
+      if (!method) return null
       return (
-        <div className='flex w-[100px] items-center gap-2'>
-          {status.icon && (
-            <status.icon className='size-4 text-muted-foreground' />
-          )}
-          <span>{status.label}</span>
+        <div className='flex w-[80px] items-center gap-1.5'>
+          <method.icon className='size-3.5 text-muted-foreground' />
+          <span className='text-sm'>{method.label}</span>
         </div>
       )
     },
@@ -89,27 +124,17 @@ export const tasksColumns: ColumnDef<Task>[] = [
     },
   },
   {
-    accessorKey: 'priority',
+    accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Priority' />
+      <DataTableColumnHeader column={column} title='상태' />
     ),
-    meta: { className: 'ps-1', tdClassName: 'ps-3' },
     cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue('priority')
-      )
-
-      if (!priority) {
-        return null
-      }
-
+      const status = statuses.find((s) => s.value === row.getValue('status'))
+      if (!status) return null
       return (
-        <div className='flex items-center gap-2'>
-          {priority.icon && (
-            <priority.icon className='size-4 text-muted-foreground' />
-          )}
-          <span>{priority.label}</span>
-        </div>
+        <Badge variant={statusVariant[status.value] ?? 'outline'}>
+          {status.label}
+        </Badge>
       )
     },
     filterFn: (row, id, value) => {

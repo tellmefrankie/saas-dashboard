@@ -23,7 +23,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
-import { priorities, statuses } from '../data/data'
+import { paymentMethods, statuses } from '../data/data'
 import { type Task } from '../data/schema'
 import { DataTableBulkActions } from './data-table-bulk-actions'
 import { tasksColumns as columns } from './tasks-columns'
@@ -61,7 +61,7 @@ export function TasksTable({ data }: DataTableProps) {
     globalFilter: { enabled: true, key: 'filter' },
     columnFilters: [
       { columnId: 'status', searchKey: 'status', type: 'array' },
-      { columnId: 'priority', searchKey: 'priority', type: 'array' },
+      { columnId: 'paymentMethod', searchKey: 'paymentMethod', type: 'array' },
     ],
   })
 
@@ -82,11 +82,16 @@ export function TasksTable({ data }: DataTableProps) {
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     globalFilterFn: (row, _columnId, filterValue) => {
-      const id = String(row.getValue('id')).toLowerCase()
-      const title = String(row.getValue('title')).toLowerCase()
+      const orderNumber = String(row.getValue('orderNumber')).toLowerCase()
+      const customerName = String(row.getValue('customerName')).toLowerCase()
+      const product = String(row.getValue('product')).toLowerCase()
       const searchValue = String(filterValue).toLowerCase()
 
-      return id.includes(searchValue) || title.includes(searchValue)
+      return (
+        orderNumber.includes(searchValue) ||
+        customerName.includes(searchValue) ||
+        product.includes(searchValue)
+      )
     },
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -113,17 +118,17 @@ export function TasksTable({ data }: DataTableProps) {
     >
       <DataTableToolbar
         table={table}
-        searchPlaceholder='Filter by title or ID...'
+        searchPlaceholder='주문번호, 주문자, 상품명 검색...'
         filters={[
           {
             columnId: 'status',
-            title: 'Status',
+            title: '주문상태',
             options: statuses,
           },
           {
-            columnId: 'priority',
-            title: 'Priority',
-            options: priorities,
+            columnId: 'paymentMethod',
+            title: '결제수단',
+            options: paymentMethods,
           },
         ]}
       />
@@ -183,7 +188,7 @@ export function TasksTable({ data }: DataTableProps) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  검색 결과가 없습니다.
                 </TableCell>
               </TableRow>
             )}
