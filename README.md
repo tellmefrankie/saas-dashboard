@@ -1,119 +1,89 @@
-# Shadcn Admin Dashboard
+# Admin Pro — SaaS 어드민 대시보드
 
-Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and accessibility in mind.
+한국형 SaaS 어드민 대시보드. 주문/결제, 회원, 예약 관리 기능을 갖춘 프로페셔널한 관리자 패널입니다.
 
-![alt text](public/images/shadcn-admin.png)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![React](https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![shadcn/ui](https://img.shields.io/badge/shadcn/ui-000000?style=flat-square&logo=shadcnui&logoColor=white)
 
-[![Sponsored by Clerk](https://img.shields.io/badge/Sponsored%20by-Clerk-5b6ee1?logo=clerk)](https://go.clerk.com/GttUAaK)
+## 스크린샷
 
-I've been creating dashboard UIs at work and for my personal projects. I always wanted to make a reusable collection of dashboard UI for future projects; and here it is now. While I've created a few custom components, some of the code is directly adapted from ShadcnUI examples.
+### 대시보드 메인
+![대시보드](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/01-dashboard.png)
 
-> This is not a starter project (template) though. I'll probably make one in the future.
+### 주문 목록
+![주문 목록](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/02-orders.png)
 
-## Features
+### 주문 상세 (결제 정보)
+![주문 상세](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/03-order-detail.png)
 
-- Light/dark mode
-- Responsive
-- Accessible
-- With built-in Sidebar component
-- Global search command
-- 10+ pages
-- Extra custom components
-- RTL support
+### 회원 관리
+![회원 관리](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/04-members.png)
 
-<details>
-<summary>Customized Components (click to expand)</summary>
+### 예약 관리
+![예약 관리](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/05-reservation.png)
 
-This project uses Shadcn UI components, but some have been slightly modified for better RTL (Right-to-Left) support and other improvements. These customized components differ from the original Shadcn UI versions.
+## 주요 기능
 
-If you want to update components using the Shadcn CLI (e.g., `npx shadcn@latest add <component>`), it's generally safe for non-customized components. For the listed customized ones, you may need to manually merge changes to preserve the project's modifications and avoid overwriting RTL support or other updates.
+- **대시보드** — 오늘 매출, 신규 주문, 신규 회원, 전환율 통계 카드 + 월별 매출 차트
+- **주문/결제 관리** — 주문 목록 (필터, 검색, 페이지네이션) + 주문 상세 (토스페이먼츠 스타일 결제 정보)
+- **회원 관리** — 회원 목록 (등급 VVIP/VIP/일반, 상태 필터) + 주문이력/누적결제금액
+- **예약 관리** — 예약 목록 + 월간 캘린더 뷰 (날짜별 예약 건수)
+- **설정** — 프로필, 계정, 테마(라이트/다크), 알림, 화면 설정
+- **반응형 레이아웃** — 모바일/태블릿/데스크톱 대응
+- **다크모드** — 라이트/다크 테마 토글
 
-> If you don't require RTL support, you can safely update the 'RTL Updated Components' via the Shadcn CLI, as these changes are primarily for RTL compatibility. The 'Modified Components' may have other customizations to consider.
+## 기술 스택
 
-### Modified Components
+| 카테고리 | 기술 |
+|---------|------|
+| 프레임워크 | Vite + React 19 |
+| 언어 | TypeScript (strict) |
+| 라우팅 | TanStack Router (파일 기반) |
+| 상태관리 | TanStack React Query + Zustand |
+| UI | Tailwind CSS v4 + shadcn/ui (Radix UI) |
+| 차트 | Recharts |
+| 폼/검증 | React Hook Form + Zod |
+| 아이콘 | Lucide React |
 
-- scroll-area
-- sonner
-- separator
+## 아키텍처
 
-### RTL Updated Components
-
-- alert-dialog
-- calendar
-- command
-- dialog
-- dropdown-menu
-- select
-- table
-- sheet
-- sidebar
-- switch
-
-**Notes:**
-
-- **Modified Components**: These have general updates, potentially including RTL adjustments.
-- **RTL Updated Components**: These have specific changes for RTL language support (e.g., layout, positioning).
-- For implementation details, check the source files in `src/components/ui/`.
-- All other Shadcn UI components in the project are standard and can be safely updated via the CLI.
-
-</details>
-
-## Tech Stack
-
-**UI:** [ShadcnUI](https://ui.shadcn.com) (TailwindCSS + RadixUI)
-
-**Build Tool:** [Vite](https://vitejs.dev/)
-
-**Routing:** [TanStack Router](https://tanstack.com/router/latest)
-
-**Type Checking:** [TypeScript](https://www.typescriptlang.org/)
-
-**Linting/Formatting:** [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/)
-
-**Icons:** [Lucide Icons](https://lucide.dev/icons/), [Tabler Icons](https://tabler.io/icons) (Brand icons only)
-
-**Auth (partial):** [Clerk](https://go.clerk.com/GttUAaK)
-
-## Run Locally
-
-Clone the project
-
-```bash
-  git clone https://github.com/satnaing/shadcn-admin.git
+```mermaid
+graph TD
+    A[Vite Dev Server] --> B[React 19 + TypeScript]
+    B --> C[TanStack Router]
+    C --> D[Pages / Routes]
+    D --> E[대시보드]
+    D --> F[주문관리]
+    D --> G[회원관리]
+    D --> H[예약관리]
+    D --> I[설정]
+    B --> J[shadcn/ui Components]
+    B --> K[Tailwind CSS v4]
+    B --> L[Zustand Store]
+    B --> M[Mock Data]
 ```
 
-Go to the project directory
+## 로컬 실행
 
 ```bash
-  cd shadcn-admin
+git clone https://github.com/tellmefrankie/saas-dashboard.git
+cd saas-dashboard
+pnpm install
+pnpm dev
 ```
 
-Install dependencies
+`http://localhost:5173`에서 확인할 수 있습니다.
+
+## 빌드
 
 ```bash
-  pnpm install
+pnpm build
+pnpm preview
 ```
 
-Start the server
+## 라이선스
 
-```bash
-  pnpm run dev
-```
-
-## Sponsoring this project ❤️
-
-If you find this project helpful or use this in your own work, consider [sponsoring me](https://github.com/sponsors/satnaing) to support development and maintenance. You can [buy me a coffee](https://buymeacoffee.com/satnaing) as well. Don’t worry, every penny helps. Thank you! 🙏
-
-For questions or sponsorship inquiries, feel free to reach out at [satnaingdev@gmail.com](mailto:satnaingdev@gmail.com).
-
-### Current Sponsor
-
-- [Clerk](https://go.clerk.com/GttUAaK) - authentication and user management for the modern web
-
-## Author
-
-Crafted with 🤍 by [@satnaing](https://github.com/satnaing)
-
-## License
-
-Licensed under the [MIT License](https://choosealicense.com/licenses/mit/)
+MIT
