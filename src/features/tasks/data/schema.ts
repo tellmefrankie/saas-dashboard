@@ -8,11 +8,7 @@ export const orderStatusValues = [
   '취소',
 ] as const
 
-export const paymentMethodValues = [
-  '카드',
-  '계좌이체',
-  '간편결제',
-] as const
+export const paymentMethodValues = ['카드', '계좌이체', '간편결제'] as const
 
 export const orderSchema = z.object({
   id: z.string(),

@@ -195,7 +195,9 @@ export function OrderDetail() {
               <Separator />
               <div className='flex items-center justify-between'>
                 <span className='text-sm text-muted-foreground'>승인번호</span>
-                <span className='font-mono text-sm'>{order.approvalNumber}</span>
+                <span className='font-mono text-sm'>
+                  {order.approvalNumber}
+                </span>
               </div>
               <Separator />
               <div className='flex items-center justify-between'>
@@ -229,7 +231,9 @@ export function OrderDetail() {
             <div className='mt-4 flex justify-end'>
               <div className='space-y-1 text-right'>
                 <div className='flex items-center justify-between gap-8'>
-                  <span className='text-sm text-muted-foreground'>상품금액</span>
+                  <span className='text-sm text-muted-foreground'>
+                    상품금액
+                  </span>
                   <span className='text-sm'>
                     ₩{order.amount.toLocaleString('ko-KR')}
                   </span>

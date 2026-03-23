@@ -1,7 +1,7 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
+import { useNavigate } from '@tanstack/react-router'
 import { type Row } from '@tanstack/react-table'
 import { Eye } from 'lucide-react'
-import { useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -35,7 +35,9 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
         <DropdownMenuItem
-          onClick={() => navigate({ to: '/tasks/$id', params: { id: order.id } })}
+          onClick={() =>
+            navigate({ to: '/tasks/$id', params: { id: order.id } })
+          }
         >
           <Eye className='mr-2 size-4' />
           주문 상세

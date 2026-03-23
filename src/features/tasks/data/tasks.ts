@@ -81,7 +81,7 @@ function generateOrders(): Order[] {
     // Distribute statuses: 40% 배송완료, 20% 배송중, 20% 결제완료, 10% 배송준비, 10% 취소
     const statusWeights = [2, 1, 2, 4, 1] // 결제완료, 배송준비, 배송중, 배송완료, 취소
     const totalWeight = statusWeights.reduce((a, b) => a + b, 0)
-    const statusRand = ((i * 7 + 3) % totalWeight) // deterministic pseudo-random
+    const statusRand = (i * 7 + 3) % totalWeight // deterministic pseudo-random
     let cumulative = 0
     let statusIndex = 0
     for (let s = 0; s < statusWeights.length; s++) {

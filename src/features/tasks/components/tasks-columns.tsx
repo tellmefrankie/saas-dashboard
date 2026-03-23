@@ -129,9 +129,7 @@ export const tasksColumns: ColumnDef<Order>[] = [
       <DataTableColumnHeader column={column} title='상태' />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
-        (s) => s.value === row.getValue('status')
-      )
+      const status = statuses.find((s) => s.value === row.getValue('status'))
       if (!status) return null
       return (
         <Badge variant={statusVariant[status.value] ?? 'outline'}>
