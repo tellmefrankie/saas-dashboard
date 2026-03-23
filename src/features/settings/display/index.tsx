@@ -4,8 +4,8 @@ import { DisplayForm } from './display-form'
 export function SettingsDisplay() {
   return (
     <ContentSection
-      title='Display'
-      desc="Turn items on or off to control what's displayed in the app."
+      title='화면'
+      desc='앱에 표시할 항목을 설정합니다.'
     >
       <DisplayForm />
     </ContentSection>
