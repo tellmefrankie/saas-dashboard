@@ -130,10 +130,11 @@
 - UI 변경이 있는 PR에는 반드시 스크린샷 첨부
 - 캡처 절차: dev 서버 실행 → Playwright로 페이지 탐색 → 스크린샷 저장 → PR 본문에 첨부
 - **PR에 스크린샷 업로드 방법**:
-  1. 스크린샷 파일을 `screenshots/` 폴더에 저장하고 커밋
-  2. PR 본문에 `![설명](https://raw.githubusercontent.com/tellmefrankie/saas-dashboard/main/screenshots/파일명.png)` 삽입
-  3. **주의: feature 브랜치 URL 사용 금지** — squash merge 후 브랜치 삭제 시 404 발생
-  4. 스크린샷은 머지 후 main에 존재하므로 main 브랜치 기준 URL 사용
+  1. 스크린샷 파일을 `screenshots/` 폴더에 로컬 저장 (커밋하지 않음)
+  2. GitHub Release asset로 업로드: `gh release upload screenshots 파일.png --clobber`
+  3. PR 본문에 `![설명](릴리스 다운로드 URL)` 마크다운으로 삽입
+  4. 스크린샷을 repo에 커밋하지 말 것 — Release asset만 사용
+- **텔레그램 보고 시에도 스크린샷 파일 첨부**
 
 ---
 
