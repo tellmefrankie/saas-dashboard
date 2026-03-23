@@ -69,7 +69,7 @@ export const usersColumns: ColumnDef<User>[] = [
       <DataTableColumnHeader column={column} title='이메일' />
     ),
     cell: ({ row }) => (
-      <div className='w-fit ps-2 text-nowrap text-sm'>
+      <div className='w-fit ps-2 text-sm text-nowrap'>
         {row.getValue('email')}
       </div>
     ),
@@ -93,8 +93,7 @@ export const usersColumns: ColumnDef<User>[] = [
       const date = row.original.createdAt
       return (
         <div className='text-sm'>
-          {date.getFullYear()}.
-          {String(date.getMonth() + 1).padStart(2, '0')}.
+          {date.getFullYear()}.{String(date.getMonth() + 1).padStart(2, '0')}.
           {String(date.getDate()).padStart(2, '0')}
         </div>
       )
@@ -132,13 +131,8 @@ export const usersColumns: ColumnDef<User>[] = [
       const gradeInfo = roles.find(({ value }) => value === role)
       if (!gradeInfo) return null
       return (
-        <Badge
-          variant='outline'
-          className={cn(gradeVariant[role] ?? '')}
-        >
-          {gradeInfo.icon && (
-            <gradeInfo.icon size={12} className='mr-1' />
-          )}
+        <Badge variant='outline' className={cn(gradeVariant[role] ?? '')}>
+          {gradeInfo.icon && <gradeInfo.icon size={12} className='mr-1' />}
           {gradeInfo.label}
         </Badge>
       )
