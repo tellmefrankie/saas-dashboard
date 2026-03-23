@@ -9,12 +9,7 @@ import {
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import {
   Select,
@@ -212,9 +207,7 @@ export function Apps() {
                           <TableCell>{r.date}</TableCell>
                           <TableCell>{r.time}</TableCell>
                           <TableCell>{r.service}</TableCell>
-                          <TableCell className='text-sm'>
-                            {r.phone}
-                          </TableCell>
+                          <TableCell className='text-sm'>{r.phone}</TableCell>
                           <TableCell>
                             <Badge variant={statusVariant[r.status]}>
                               <StatusIcon className='mr-1 size-3' />
@@ -262,9 +255,7 @@ export function Apps() {
                           <Badge variant={statusVariant[r.status]}>
                             {r.status}
                           </Badge>
-                          <span className='font-medium'>
-                            {r.customerName}
-                          </span>
+                          <span className='font-medium'>{r.customerName}</span>
                           <span className='text-sm text-muted-foreground'>
                             {r.time}
                           </span>
