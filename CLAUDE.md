@@ -129,6 +129,11 @@
 - Playwright MCP를 활용하여 dev 서버에서 페이지 스크린샷 캡처
 - UI 변경이 있는 PR에는 반드시 스크린샷 첨부
 - 캡처 절차: dev 서버 실행 → Playwright로 페이지 탐색 → 스크린샷 저장 → PR 본문에 첨부
+- **PR에 스크린샷 업로드 방법**:
+  1. 스크린샷 파일을 `screenshots/` 폴더에 저장
+  2. `gh issue create`로 임시 이슈 생성 후 이미지 업로드하여 GitHub URL 획득, 또는 `cURL`로 GitHub Upload API 사용
+  3. PR 본문에 `![설명](GitHub 이미지 URL)` 마크다운으로 삽입
+  4. PR 본문에서 스크린샷이 직접 보이도록 할 것 (외부 링크/로컬 경로 금지)
 
 ---
 
