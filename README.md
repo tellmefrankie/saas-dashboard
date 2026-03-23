@@ -11,18 +11,23 @@
 ## 스크린샷
 
 ### 대시보드 메인
+
 ![대시보드](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/01-dashboard.png)
 
 ### 주문 목록
+
 ![주문 목록](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/02-orders.png)
 
 ### 주문 상세 (결제 정보)
+
 ![주문 상세](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/03-order-detail.png)
 
 ### 회원 관리
+
 ![회원 관리](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/04-members.png)
 
 ### 예약 관리
+
 ![예약 관리](https://github.com/tellmefrankie/saas-dashboard/releases/download/screenshots/05-reservation.png)
 
 ## 주요 기능
@@ -37,16 +42,16 @@
 
 ## 기술 스택
 
-| 카테고리 | 기술 |
-|---------|------|
-| 프레임워크 | Vite + React 19 |
-| 언어 | TypeScript (strict) |
-| 라우팅 | TanStack Router (파일 기반) |
-| 상태관리 | TanStack React Query + Zustand |
-| UI | Tailwind CSS v4 + shadcn/ui (Radix UI) |
-| 차트 | Recharts |
-| 폼/검증 | React Hook Form + Zod |
-| 아이콘 | Lucide React |
+| 카테고리   | 기술                                   |
+| ---------- | -------------------------------------- |
+| 프레임워크 | Vite + React 19                        |
+| 언어       | TypeScript (strict)                    |
+| 라우팅     | TanStack Router (파일 기반)            |
+| 상태관리   | TanStack React Query + Zustand         |
+| UI         | Tailwind CSS v4 + shadcn/ui (Radix UI) |
+| 차트       | Recharts                               |
+| 폼/검증    | React Hook Form + Zod                  |
+| 아이콘     | Lucide React                           |
 
 ## 아키텍처
 
