@@ -2,7 +2,7 @@
 
 한국형 SaaS 어드민 대시보드. 주문/결제, 회원, 예약 관리 기능을 갖춘 프로페셔널한 관리자 패널입니다.
 
-**[라이브 데모](https://frank-saas-dashboard.vercel.app/)**
+**[라이브 데모](https://admin-pro-ten.vercel.app/)**
 
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black)
