@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { type Table } from '@tanstack/react-table'
-import { Trash2, UserX, UserCheck, Mail } from 'lucide-react'
+import { Trash2, UserX, UserCheck } from 'lucide-react'
 import { toast } from 'sonner'
 import { sleep } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -23,70 +23,37 @@ export function DataTableBulkActions<TData>({
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const selectedRows = table.getFilteredSelectedRowModel().rows
 
-  const handleBulkStatusChange = (status: 'active' | 'inactive') => {
+  const handleBulkStatusChange = (status: '활성' | '휴면') => {
     const selectedUsers = selectedRows.map((row) => row.original as User)
     toast.promise(sleep(2000), {
-      loading: `${status === 'active' ? 'Activating' : 'Deactivating'} users...`,
+      loading: `회원 상태 변경 중...`,
       success: () => {
         table.resetRowSelection()
-        return `${status === 'active' ? 'Activated' : 'Deactivated'} ${selectedUsers.length} user${selectedUsers.length > 1 ? 's' : ''}`
+        return `${selectedUsers.length}명의 회원 상태가 "${status}"(으)로 변경되었습니다.`
       },
-      error: `Error ${status === 'active' ? 'activating' : 'deactivating'} users`,
-    })
-    table.resetRowSelection()
-  }
-
-  const handleBulkInvite = () => {
-    const selectedUsers = selectedRows.map((row) => row.original as User)
-    toast.promise(sleep(2000), {
-      loading: 'Inviting users...',
-      success: () => {
-        table.resetRowSelection()
-        return `Invited ${selectedUsers.length} user${selectedUsers.length > 1 ? 's' : ''}`
-      },
-      error: 'Error inviting users',
+      error: '오류가 발생했습니다.',
     })
     table.resetRowSelection()
   }
 
   return (
     <>
-      <BulkActionsToolbar table={table} entityName='user'>
+      <BulkActionsToolbar table={table} entityName='회원'>
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant='outline'
               size='icon'
-              onClick={handleBulkInvite}
+              onClick={() => handleBulkStatusChange('활성')}
               className='size-8'
-              aria-label='Invite selected users'
-              title='Invite selected users'
-            >
-              <Mail />
-              <span className='sr-only'>Invite selected users</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Invite selected users</p>
-          </TooltipContent>
-        </Tooltip>
-
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant='outline'
-              size='icon'
-              onClick={() => handleBulkStatusChange('active')}
-              className='size-8'
-              aria-label='Activate selected users'
-              title='Activate selected users'
+              aria-label='활성화'
             >
               <UserCheck />
-              <span className='sr-only'>Activate selected users</span>
+              <span className='sr-only'>활성화</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Activate selected users</p>
+            <p>활성화</p>
           </TooltipContent>
         </Tooltip>
 
@@ -95,17 +62,16 @@ export function DataTableBulkActions<TData>({
             <Button
               variant='outline'
               size='icon'
-              onClick={() => handleBulkStatusChange('inactive')}
+              onClick={() => handleBulkStatusChange('휴면')}
               className='size-8'
-              aria-label='Deactivate selected users'
-              title='Deactivate selected users'
+              aria-label='휴면 처리'
             >
               <UserX />
-              <span className='sr-only'>Deactivate selected users</span>
+              <span className='sr-only'>휴면 처리</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Deactivate selected users</p>
+            <p>휴면 처리</p>
           </TooltipContent>
         </Tooltip>
 
@@ -116,15 +82,14 @@ export function DataTableBulkActions<TData>({
               size='icon'
               onClick={() => setShowDeleteConfirm(true)}
               className='size-8'
-              aria-label='Delete selected users'
-              title='Delete selected users'
+              aria-label='선택 회원 삭제'
             >
               <Trash2 />
-              <span className='sr-only'>Delete selected users</span>
+              <span className='sr-only'>선택 회원 삭제</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Delete selected users</p>
+            <p>선택 회원 삭제</p>
           </TooltipContent>
         </Tooltip>
       </BulkActionsToolbar>
