@@ -31,9 +31,7 @@ const profileFormSchema = z.object({
     .max(30, '사용자 이름은 30자를 초과할 수 없습니다.'),
   email: z.email({
     error: (iss) =>
-      iss.input === undefined
-        ? '표시할 이메일을 선택해주세요.'
-        : undefined,
+      iss.input === undefined ? '표시할 이메일을 선택해주세요.' : undefined,
   }),
   bio: z.string().max(160).min(4),
   urls: z
@@ -110,8 +108,8 @@ export function ProfileForm() {
                 </SelectContent>
               </Select>
               <FormDescription>
-                인증된 이메일 주소는{' '}
-                <Link to='/'>이메일 설정</Link>에서 관리할 수 있습니다.
+                인증된 이메일 주소는 <Link to='/'>이메일 설정</Link>에서 관리할
+                수 있습니다.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -131,8 +129,7 @@ export function ProfileForm() {
                 />
               </FormControl>
               <FormDescription>
-                <span>@멘션</span>으로 다른 사용자나 조직을 태그할 수
-                있습니다.
+                <span>@멘션</span>으로 다른 사용자나 조직을 태그할 수 있습니다.
               </FormDescription>
               <FormMessage />
             </FormItem>

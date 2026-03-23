@@ -158,9 +158,7 @@ export function AccountForm() {
                   </Command>
                 </PopoverContent>
               </Popover>
-              <FormDescription>
-                대시보드에서 사용할 언어입니다.
-              </FormDescription>
+              <FormDescription>대시보드에서 사용할 언어입니다.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

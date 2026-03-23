@@ -20,9 +20,7 @@ import { Switch } from '@/components/ui/switch'
 const notificationsFormSchema = z.object({
   type: z.enum(['all', 'mentions', 'none'], {
     error: (iss) =>
-      iss.input === undefined
-        ? '알림 유형을 선택해주세요.'
-        : undefined,
+      iss.input === undefined ? '알림 유형을 선택해주세요.' : undefined,
   }),
   mobile: z.boolean().default(false).optional(),
   communication_emails: z.boolean().default(false).optional(),
@@ -124,9 +122,7 @@ export function NotificationsForm() {
               render={({ field }) => (
                 <FormItem className='flex flex-row items-center justify-between rounded-lg border p-4'>
                   <div className='space-y-0.5'>
-                    <FormLabel className='text-base'>
-                      마케팅 이메일
-                    </FormLabel>
+                    <FormLabel className='text-base'>마케팅 이메일</FormLabel>
                     <FormDescription>
                       새로운 제품, 기능 등에 관한 이메일을 수신합니다.
                     </FormDescription>
@@ -196,9 +192,7 @@ export function NotificationsForm() {
                 />
               </FormControl>
               <div className='space-y-1 leading-none'>
-                <FormLabel>
-                  모바일 기기에 다른 설정 사용
-                </FormLabel>
+                <FormLabel>모바일 기기에 다른 설정 사용</FormLabel>
                 <FormDescription>
                   모바일 알림은{' '}
                   <Link

@@ -192,10 +192,7 @@ export function DataTableBulkActions<TData>({
             >
               {selectedCount}
             </Badge>{' '}
-            <span className='hidden sm:inline'>
-              {entityName}
-            </span>{' '}
-            개 선택됨
+            <span className='hidden sm:inline'>{entityName}</span> 개 선택됨
           </div>
 
           <Separator

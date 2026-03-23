@@ -89,9 +89,7 @@ export function AppearanceForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>테마</FormLabel>
-              <FormDescription>
-                대시보드의 테마를 선택하세요.
-              </FormDescription>
+              <FormDescription>대시보드의 테마를 선택하세요.</FormDescription>
               <FormMessage />
               <RadioGroup
                 onValueChange={field.onChange}
