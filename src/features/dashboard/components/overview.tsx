@@ -1,54 +1,18 @@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 const data = [
-  {
-    name: 'Jan',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Feb',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Mar',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Apr',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'May',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Jun',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Jul',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Aug',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Sep',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Oct',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Nov',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: 'Dec',
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
+  { name: '1월', total: 18500000 },
+  { name: '2월', total: 21200000 },
+  { name: '3월', total: 19800000 },
+  { name: '4월', total: 24300000 },
+  { name: '5월', total: 22100000 },
+  { name: '6월', total: 28700000 },
+  { name: '7월', total: 31500000 },
+  { name: '8월', total: 27900000 },
+  { name: '9월', total: 33200000 },
+  { name: '10월', total: 29400000 },
+  { name: '11월', total: 35800000 },
+  { name: '12월', total: 38100000 },
 ]
 
 export function Overview() {
@@ -68,7 +32,9 @@ export function Overview() {
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `$${value}`}
+          tickFormatter={(value: number) =>
+            `${(value / 10000).toLocaleString('ko-KR')}만`
+          }
         />
         <Bar
           dataKey='total'
